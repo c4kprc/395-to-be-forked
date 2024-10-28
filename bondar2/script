@@ -1,0 +1,24 @@
+read -p "Введите название проекта: " project_name
+
+read -p "Введите директорию для создания проекта: " project_dir
+
+if [ ! -d "$project_dir" ]; then
+  echo "Директория '$project_dir' не существует. Пожалуйста, введите существующую директорию."
+  exit 1
+fi
+
+mkdir -p "$project_dir/$project_name"
+mkdir -p "$project_dir/$project_name/src/scripts"
+mkdir -p "$project_dir/$project_name/src/styles"
+mkdir -p "$project_dir/$project_name/src/images"
+
+echo "# $project_name" > "$project_dir/$project_name/README.md"
+echo "" >> "$project_dir/$project_name/README.md"
+echo "Инструкции по использованию проекта." >> "$project_dir/$project_name/README.md"
+
+echo "node_modules" > "$project_dir/$project_name/.gitignore"
+echo "*.log" >> "$project_dir/$project_name/.gitignore"
+echo ".env" >> "$project_dir/$project_name/.gitignore"
+
+echo "Структура проекта '$project_name' успешно создана в директории '$project_dir'."
+
