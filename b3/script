@@ -1,0 +1,44 @@
+if [ -z "$1" ]; then
+  echo "Укажите название курса!"
+  exit 1
+fi
+
+course="$1"
+
+if [ ! -d "$course" ]; then
+  mkdir "$course"
+fi
+
+mkdir "$course/Студенты"
+
+touch "$course/Оценки.txt"
+
+read -p "Сколько студентов в группе? " num
+
+for i in $(seq 1 $num_students); do
+  read -p "Студент $i: " name
+  echo "$name: " >> "$course/Оценки.txt"
+done
+
+echo "Оценки добавлены в файл \"Оценки.txt\" для курса \"$course_name\"."
+
+
+edit_grades() {
+
+  read -p "Введите название курса: " course
+
+  if [ ! -d "$course" ]; then
+    echo "Курс \"$course\" не найден."
+    return 1
+  fi
+
+  nano "$course/Оценки.txt"
+
+  echo "Оценки для курса \"$course\" успешно отредактированы."
+}
+
+read -p "Хотите редактировать оценки? (y/n): " edit_choice
+
+if [ "$edit_choice" == "y" ]; then
+  edit_grades
+fi
